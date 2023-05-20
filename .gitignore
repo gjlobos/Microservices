@@ -1,0 +1,9 @@
+# Ignora archivos del sistema Mac 
+.DS_store
+
+# Ignora archivos de texto
+*.txt
+
+# Ignora archivos pdf
+*.pdf
+*.epub
