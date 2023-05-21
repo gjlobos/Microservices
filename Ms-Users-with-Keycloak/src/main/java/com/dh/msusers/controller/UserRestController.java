@@ -23,6 +23,6 @@ public class UserRestController {
         return userService.findById(id);
     }
     @PutMapping("/update")
-    public User findById(@RequestParam String id, @RequestParam String nationality) {
+    public User updateNationality(@RequestParam String id, @RequestParam String nationality) {
         return userService.updateNationality(id, nationality); }
 }

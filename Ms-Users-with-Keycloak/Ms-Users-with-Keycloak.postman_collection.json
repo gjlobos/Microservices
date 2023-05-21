@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "4e7d9f99-3c8b-4e6c-9a9b-15959abf2611",
+		"name": "Ms-Users-with-Keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20452899",
+		"_collection_link": "https://universal-firefly-187430.postman.co/workspace/0668fdb2-af2d-46db-8016-4320ec3792a5/collection/20452899-4e7d9f99-3c8b-4e6c-9a9b-15959abf2611?action=share&creator=20452899&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "FindUserByFirstName",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "FindUserById",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserAttribute",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/users/update?id=e00a328c-9d40-4138-908f-3cc334309ba8&nationality=Argentina",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"users",
+						"update"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "e00a328c-9d40-4138-908f-3cc334309ba8"
+						},
+						{
+							"key": "nationality",
+							"value": "Argentina"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
