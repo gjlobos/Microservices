@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "7581ac34-d8af-4a20-b0b3-267d325b5a5e",
+		"name": "tpf",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20452899",
+		"_collection_link": "https://universal-firefly-187430.postman.co/workspace/My-Workspace~0668fdb2-af2d-46db-8016-4320ec3792a5/collection/20452899-7581ac34-d8af-4a20-b0b3-267d325b5a5e?action=share&creator=20452899&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Sprint 1",
+			"item": [
+				{
+					"name": "Flujo de autenticación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "?client_id=microservices&response_type=code&redirect_uri=http://34.201.108.135:8082/",
+							"query": [
+								{
+									"key": "client_id",
+									"value": "microservices"
+								},
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://34.201.108.135:8082/"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser (desde user-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": \"11111111\",\r\n    \"username\":\"alberto.fernandez\",\r\n    \"firstName\": \"Alberto\",\r\n    \"lastName\": \"Fernandez\",\r\n    \"email\": \"alberto.fernandez@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"phone\": \"+5412345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8781/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8781",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser (desde gateway-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": \"38845383\",\r\n    \"firstName\": \"Juan\",\r\n    \"lastName\": \"Perez\",\r\n    \"email\": \"juan.perez@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"phone\": \"+5412345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login (desde el user-service)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"alberto.fernandez@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8781/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8781",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login (desde el gateway-service)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"juan.perez@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout (desde el user-service)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0YllYdnpha1lCLVhTTFI0RjhoRTNheExnU0dKQ2toVG5QS01yNnFjeWpZIn0.eyJleHAiOjE2ODQ0NTk4NDksImlhdCI6MTY4NDQ1OTU0OSwianRpIjoiNGNjMDg2NjQtNjUwYi00NjVkLTgxZjgtNzNiY2Y4YTRkYTFmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgyL3JlYWxtcy9EaWdpdGFsTWVkaWEiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI4YzE2YWUtYjlhMy00NjBjLWIwOTgtZjQ5MTcxNGVmODRlIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNpb3MiLCJzZXNzaW9uX3N0YXRlIjoiYzJmMjA1YTMtYjM0My00NTVmLWEwNDctZjA3YWFkMDY0OGMyIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWRpZ2l0YWxtZWRpYSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHJvbGVzIHByb2ZpbGUiLCJzaWQiOiJjMmYyMDVhMy1iMzQzLTQ1NWYtYTA0Ny1mMDdhYWQwNjQ4YzIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJKdWFuIFBlcmV6IiwiZ3JvdXBzIjpbXSwicHJlZmVycmVkX3VzZXJuYW1lIjoianVhbi5wZXJleiIsImdpdmVuX25hbWUiOiJKdWFuIiwiZmFtaWx5X25hbWUiOiJQZXJleiIsImVtYWlsIjoianVhbi5wZXJlekBnbWFpbC5jb20ifQ.PBs51W2UvRfCoEY7gjWAbi0nbF-MlkJCuSq4K989EdDOCCDT3BZOfG_sCoPMllKi0yIVNhKoGyKU6p_WKm0tsW0aZloLDBB4XD7BvVeILbrmhrHTFSYl-OETcC8k8JpfR7jIIYVTL3jpSwhmaMh99BfCwS5e4T6hsXIdsdhphWx9woPU3KnZ8N5-s7W7Hea3xC1u7owYkVEN5zsA8ClceAuhi2XDorFuRbwEEiRrg16g1D7gKdq9uBxAcOwc90JVpWWaJYbOYDV4WH57KpxR_PjaEOnOi8BzjryC7zNYfHMPge9aaFhpTl0iEQ2wDtF0oYm9auzyapiu6-Z_Puuckg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8781/users/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8781",
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sprint 2",
+			"item": [
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8050/users/2115cf79-1ec2-46a9-92ac-966254796599",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"users",
+								"2115cf79-1ec2-46a9-92ac-966254796599"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserInfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyUWduYURCU2ZUMGVicDAyaEZHNzJzazdUOFBlM2RPSWZQdzlTU0hHRzVjIn0.eyJleHAiOjE2ODUxNTA0MjcsImlhdCI6MTY4NTE1MDEyNywianRpIjoiMzJkOGFiNGYtMTQ3OC00MjE3LWEwY2YtM2QzZmE0MDkyN2Q4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgyL3JlYWxtcy9EaWdpdGFsTWVkaWEiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU3YjYwNTItY2Y4ZS00ZTcxLWE1ZWItM2QyN2ZhMjEyNzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNpb3MiLCJzZXNzaW9uX3N0YXRlIjoiZDhkOWU0ZTgtM2ZhNi00NDQ3LTk1YWMtOWVjNmM4MDVhODRlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWRpZ2l0YWxtZWRpYSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCByb2xlcyBwcm9maWxlIiwic2lkIjoiZDhkOWU0ZTgtM2ZhNi00NDQ3LTk1YWMtOWVjNmM4MDVhODRlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJncm91cHMiOltdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwcm92aWRlciJ9.fRxZhnTJWnf5JezW0AfUM-XyAyeuuImlgbFbX1iLxqgJO84oNVyvC1GGIJ0AXCIZ4NhqHDoa6H0PVx5jogICQg2LpvghuLoBLauhpyRtXyBehMbX8pM0nCNIFZ52_6EbwCrBAfieBpW3KLZTp4c5iS1F7rG7nm8Mh-qJ8KV7Hx09vjqQB1ZQhdAIHyHKFp1KTp0IZYh1zPq1-SJid-GV0keSxyMTBg7F5UflhGAiD0_qr1xJ3hyRfVzEnVQsGjtDhW3vL34MKqG8qf-camChQ9JSYpbz5zgdiPj0WxgBl-sRAOVnUYJBdHAs7YNI5LoJfek6qn3Qihs0d7dTHHs9TQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"firstName\": \"Sebastian\",\n    \"lastName\": \"P.\",\n    \"dni\": \"38841393\",\n    \"phone\": \"+1154651234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/users/2115cf79-1ec2-46a9-92ac-966254796599",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"users",
+								"2115cf79-1ec2-46a9-92ac-966254796599"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAccount",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alias\": \"SILLA.VERDE.RIO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/users/account/2115cf79-1ec2-46a9-92ac-966254796599",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"users",
+								"account",
+								"2115cf79-1ec2-46a9-92ac-966254796599"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todas las transacciones ordenadas por fecha de la más reciente a la más antigua (desde transaction-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/transactions/last-five-transactions/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"transactions",
+								"last-five-transactions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar ultimas 5 transacciones (desde transaction-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/transactions/last-five-transactions/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"transactions",
+								"last-five-transactions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar una transaccion (desde transaction-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/transactions/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"transactions",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTransactionByAccountId&TransactionId (desde el gateway-service y una cuenta)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/transaction/117",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"transaction",
+								"117"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear una nueva transaccion (desde transaction-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\": \"2\",\n    \"amount\": \"200\",\n    \"dated\": \"02/06/2023\",\n    \"description\": \"Ingreso 8\",\n    \"destination\": \"5555555555555555555555\",\n    \"origin\": \"666666666666666666666\",\n    \"type\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/transactions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTransaction (desde gateway-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\": \"14\",\n    \"amount\": 200.0,\n    \"dated\": \"07/04/2023\",\n    \"description\": \"Ingreso 7\",\n    \"destination\": \"5555\",\n    \"origin\": \"6666\",\n    \"type\": \"INGRESO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/transactions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar ultimas 5 transacciones por Id de cuenta (desde account-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/1/transaction/last-five-transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"1",
+								"transaction",
+								"last-five-transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFiveTransactions (desde gateway-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/transaction/last-five-transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"transaction",
+								"last-five-transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCards (desde account-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/1/card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"1",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCards (desde gateway-service)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0YllYdnpha1lCLVhTTFI0RjhoRTNheExnU0dKQ2toVG5QS01yNnFjeWpZIn0.eyJleHAiOjE2ODQ0NTk4NDksImlhdCI6MTY4NDQ1OTU0OSwianRpIjoiNGNjMDg2NjQtNjUwYi00NjVkLTgxZjgtNzNiY2Y4YTRkYTFmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgyL3JlYWxtcy9EaWdpdGFsTWVkaWEiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI4YzE2YWUtYjlhMy00NjBjLWIwOTgtZjQ5MTcxNGVmODRlIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNpb3MiLCJzZXNzaW9uX3N0YXRlIjoiYzJmMjA1YTMtYjM0My00NTVmLWEwNDctZjA3YWFkMDY0OGMyIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWRpZ2l0YWxtZWRpYSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHJvbGVzIHByb2ZpbGUiLCJzaWQiOiJjMmYyMDVhMy1iMzQzLTQ1NWYtYTA0Ny1mMDdhYWQwNjQ4YzIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJKdWFuIFBlcmV6IiwiZ3JvdXBzIjpbXSwicHJlZmVycmVkX3VzZXJuYW1lIjoianVhbi5wZXJleiIsImdpdmVuX25hbWUiOiJKdWFuIiwiZmFtaWx5X25hbWUiOiJQZXJleiIsImVtYWlsIjoianVhbi5wZXJlekBnbWFpbC5jb20ifQ.PBs51W2UvRfCoEY7gjWAbi0nbF-MlkJCuSq4K989EdDOCCDT3BZOfG_sCoPMllKi0yIVNhKoGyKU6p_WKm0tsW0aZloLDBB4XD7BvVeILbrmhrHTFSYl-OETcC8k8JpfR7jIIYVTL3jpSwhmaMh99BfCwS5e4T6hsXIdsdhphWx9woPU3KnZ8N5-s7W7Hea3xC1u7owYkVEN5zsA8ClceAuhi2XDorFuRbwEEiRrg16g1D7gKdq9uBxAcOwc90JVpWWaJYbOYDV4WH57KpxR_PjaEOnOi8BzjryC7zNYfHMPge9aaFhpTl0iEQ2wDtF0oYm9auzyapiu6-Z_Puuckg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/a8c0a122-d1d7-4635-a1e1-80cf96a42407",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"a8c0a122-d1d7-4635-a1e1-80cf96a42407"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerCard (desde account-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"provider\": \"VISA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8788/accounts/1/card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"1",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerCard (desde gateway-service)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardNumber\": \"4170367959121585\",\r\n    \"securityCode\": \"698\",\r\n    \"expirationDate\": \"2027-06-14\",\r\n    \"provider\": \"VISA\",\r\n    \"name\": \"JUAN PEREZ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/card",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/1/card/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"1",
+								"card",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/14/card/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"14",
+								"card",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sprint 3",
+			"item": [
+				{
+					"name": "create transference",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrYWcyVGJZWlB6cDBGRlNuVlhPQVlLSG13ZGFSZ0poVy14NXEyUXpoSnhFIn0.eyJleHAiOjE2ODczMDkyMjUsImlhdCI6MTY4NzMwODkyNSwianRpIjoiNDFjNDM3NzEtYzBhOS00OTU2LThlNTItNGY0MjBhNjdlMjE2IiwiaXNzIjoiaHR0cDovLzM0LjIwMS4xMDguMTM1OjgwODIvcmVhbG1zL0RpZ2l0YWwtTW9uZXkiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMjExNWNmNzktMWVjMi00NmE5LTkyYWMtOTY2MjU0Nzk2NTk5IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNlcyIsInNlc3Npb25fc3RhdGUiOiIxODIwMWFkZi01N2YyLTRkOGMtYjdlOS00MDg4YzFjMDdjNmEiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZGlnaXRhbC1tb25leSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIxODIwMWFkZi01N2YyLTRkOGMtYjdlOS00MDg4YzFjMDdjNmEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Ikp1YW4gUGVyZXoiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqdWFuLnBlcmV6QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJKdWFuIiwiZmFtaWx5X25hbWUiOiJQZXJleiIsImVtYWlsIjoianVhbi5wZXJlekBnbWFpbC5jb20ifQ.Ekojw9OQW_hGtJpNP5Jf0jk935qsBnvefHoMmxPp5ITvJQHo-l-zBk2tCkdattg612JqlKi2coVdI8-MGyOhi7f72cwVBYS2AQewM95EE-0Q2Aiqz5pQt_yJxWu3uOh3tLmrqEfnjbBMFBGV3qWNBqr7RtfNzIX2eRcXWH9N3GtaF5_XaNgFctjMAHZTI8PDt7cHlu4erFI69zO3Ob16jVW-yotuvrA8yztvWYOP0JsLBNjDeEa5QNdx_jCi933VUB8IHXFmrAdkSy8bpWN6sh-EZz3wr21Rv_4qFge5a0XqPjPZbsnF8E4UYPj802BY1MxiDc_YQmYIaXxkAf6n2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 120.0,\r\n    \"cardNumber\": \"4170367959121585\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/deposits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"deposits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create transference Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrYWcyVGJZWlB6cDBGRlNuVlhPQVlLSG13ZGFSZ0poVy14NXEyUXpoSnhFIn0.eyJleHAiOjE2ODczMDkyMjUsImlhdCI6MTY4NzMwODkyNSwianRpIjoiNDFjNDM3NzEtYzBhOS00OTU2LThlNTItNGY0MjBhNjdlMjE2IiwiaXNzIjoiaHR0cDovLzM0LjIwMS4xMDguMTM1OjgwODIvcmVhbG1zL0RpZ2l0YWwtTW9uZXkiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMjExNWNmNzktMWVjMi00NmE5LTkyYWMtOTY2MjU0Nzk2NTk5IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNlcyIsInNlc3Npb25fc3RhdGUiOiIxODIwMWFkZi01N2YyLTRkOGMtYjdlOS00MDg4YzFjMDdjNmEiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZGlnaXRhbC1tb25leSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIxODIwMWFkZi01N2YyLTRkOGMtYjdlOS00MDg4YzFjMDdjNmEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Ikp1YW4gUGVyZXoiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqdWFuLnBlcmV6QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJKdWFuIiwiZmFtaWx5X25hbWUiOiJQZXJleiIsImVtYWlsIjoianVhbi5wZXJlekBnbWFpbC5jb20ifQ.Ekojw9OQW_hGtJpNP5Jf0jk935qsBnvefHoMmxPp5ITvJQHo-l-zBk2tCkdattg612JqlKi2coVdI8-MGyOhi7f72cwVBYS2AQewM95EE-0Q2Aiqz5pQt_yJxWu3uOh3tLmrqEfnjbBMFBGV3qWNBqr7RtfNzIX2eRcXWH9N3GtaF5_XaNgFctjMAHZTI8PDt7cHlu4erFI69zO3Ob16jVW-yotuvrA8yztvWYOP0JsLBNjDeEa5QNdx_jCi933VUB8IHXFmrAdkSy8bpWN6sh-EZz3wr21Rv_4qFge5a0XqPjPZbsnF8E4UYPj802BY1MxiDc_YQmYIaXxkAf6n2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 10.5,\r\n    \"destination\": \"1902230077788572683154\",\r\n    \"origin\": \"5542267887435470540100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8050/accounts/14/transferences",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"accounts",
+								"14",
+								"transferences"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sprint 4",
+			"item": [
+				{
+					"name": "Emitir comprobante pdf de una transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrYWcyVGJZWlB6cDBGRlNuVlhPQVlLSG13ZGFSZ0poVy14NXEyUXpoSnhFIn0.eyJleHAiOjE2ODgwMTYxNjksImlhdCI6MTY4ODAxNTg2OSwianRpIjoiMWZlNmRjMjMtYzMyNi00NGZjLTgyMzQtNTE5ZjQ1MjQyNmIyIiwiaXNzIjoiaHR0cDovLzM0LjIwMS4xMDguMTM1OjgwODIvcmVhbG1zL0RpZ2l0YWwtTW9uZXkiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMTkwM2YzMTYtZWU5OC00YmZlLTlmOTAtYzBhMDU2Y2U3ZTA2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWljcm9zZXJ2aWNlcyIsInNlc3Npb25fc3RhdGUiOiI3M2FlZTFkMy1lNDdmLTQ1YjUtYTI3NS1kN2U0YmQ0YWExYWMiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZGlnaXRhbC1tb25leSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI3M2FlZTFkMy1lNDdmLTQ1YjUtYTI3NS1kN2U0YmQ0YWExYWMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkFsYmVydG8gRmVybmFuZGV6IiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWxiZXJ0by5mZXJuYW5kZXpAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFsYmVydG8iLCJmYW1pbHlfbmFtZSI6IkZlcm5hbmRleiIsImVtYWlsIjoiYWxiZXJ0by5mZXJuYW5kZXpAZ21haWwuY29tIn0.H1KlY6aGTD3RSKfZmSrRYBMyQJhYxeeV2xWP9QoTodmAsSOCmgfQ9mKq5I2dw6jcHOel-u3kN2GmP0YFcZXPY_dPg-b-mUfsPnlYjEUymOsW-hDw5N1Pq0X7Q9yhYqycrc0YCzEwDHEUiJXWSWcHnlgTjnS5Sn_8Vqpi5q-BnF1lwBnIXasSgCS4YNrTNVBWP9vAAHRUQ0zi0n-Iwdt7NwWHAd67JYyNLb97xLbCIQimPyX_S95Vs0thqmhYd5wiG7LsB2qh0E7HluLd_aPEEhsyv0IAIva_wQsqF-zOgXuh43N3aFY3XWhsztHx6idZmiOtq5fWCeCoMSNNgEQ9Rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8788/accounts/14/transactions/132/comprobante",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8788",
+							"path": [
+								"accounts",
+								"14",
+								"transactions",
+								"132",
+								"comprobante"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: user-service
+
+  security:
+    oauth2:
+      client:
+        provider:
+          microservices:
+            issuer-uri: http://34.201.108.135:8082/realms/Digital-Money
+            jwkSetUri: http://34.201.108.135:8082/realms/Digital-Money/protocol/openid-connect/certs
+        registration:
+          gateway-service:
+            provider: microservices
+            client-id: microservices
+            scope: openid, roles
+            client-secret: XLrXWsAejjeybqs48Zr0qiFVCQyse4Db
+            authorization-grant-type: client_credentials
+            redirect-uri: 'http://user-service:8781/login/oauth2/code/keycloak'
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+queue:
+  user:
+    name: UserQueue
+
+server:
+  port: 8781
+  servlet:
+    context-path: /users/
+
+us:
+  keycloak:
+    server:
+      url: 'http://34.201.108.135:8082/'
+      realm: Digital-Money
+      clientId: microservices
+      clienSecret: XLrXWsAejjeybqs48Zr0qiFVCQyse4Db
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka
+
+logging:
+  level:
+    org.keycloak: DEBUG
+    org.springframework.security: DEBUG

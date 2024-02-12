@@ -1,0 +1,98 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - '5439:5439'
+    networks:
+      - digital-money
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: local_keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: 1234
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+    image: quay.io/keycloak/keycloak:18.0.0
+    command: start-dev
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+    networks:
+      - digital-money
+
+  eureka-service:
+    image: gjlobos/digital-money-back:eureka-latest
+    restart: always
+    container_name: eureka
+    ports:
+      - '8761:8761'
+    networks:
+      - digital-money
+
+  gateway-service:
+    depends_on:
+      - eureka-service
+    image: gjlobos/digital-money-back:gateway-latest
+    restart: always
+    container_name: gateway
+    ports:
+      - '8050:8050'
+    networks:
+      - digital-money
+
+  user-service:
+    image: gjlobos/digital-money-back:user-latest
+    restart: always
+    container_name: users
+    ports:
+      - '8781:8781'
+    networks:
+      - digital-money
+
+  account-service:
+    image: gjlobos/digital-money-back:account-latest
+    restart: always
+    container_name: accounts
+    ports:
+      - '8788:8788'
+    networks:
+      - digital-money
+
+  card-service:
+    image: gjlobos/digital-money-back:card-latest
+    restart: always
+    container_name: cards
+    ports:
+      - '8083:8083'
+    networks:
+      - digital-money
+
+  transaction-service:
+    image: gjlobos/digital-money-back:transaction-latest
+    restart: always
+    container_name: transactions
+    ports:
+      - '8084:8084'
+    networks:
+      - digital-money
+
+networks:
+  digital-money:
+    driver: bridge
+
+volumes:
+  db:

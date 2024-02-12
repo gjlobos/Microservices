@@ -1,0 +1,13 @@
+package com.dh.userservice.domain.enums;
+
+public enum EMessageCode {
+
+    EMAIL_EXIST,
+    USER_OR_PASSWORD_INCORRECT,
+    USER_NOT_EXIST,
+    ALIAS_EXIST,
+    ACOUNT_NOT_FOUND_BY_ID,
+    ACCOUNT_NOT_EXIST_BY_USER_ID,
+    ALIAS_FORMAT_INCORRECT,
+    INSUFFICIENT_FUNDS
+}

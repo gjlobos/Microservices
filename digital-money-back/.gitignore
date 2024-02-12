@@ -1,0 +1,34 @@
+# Intellij IDE
+.idea/
+../.idea/
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Mac OS X
+.DS_Store
+../.DS_Store
+
+# VSCode
+.vscode/
+../.vscode/
+.vscode
+
+# Compilation files
+*.out
+*.class
+*.jar
+*.log
+*.tmp
+*.tmp.*
+*.index
+*.diff
+*.classpath
+*.xml
+
+# Carpeta facturas
+facturas/
+facturas/*
+../facturas/
+../facturas/*

@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: Digital Money
+  description: .
+  version: 1.0.0
+
+paths:
+  accounts/{accountId}/transferences:
+    get:
+      summary: Obten los últimos destinatarios
+      description: Trae los destinatarios de las últimas transacciones
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            type: long
+      responses:
+        '200':
+          description: Destinatarios traídos exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '204':
+          description: No existe información.
+        '401':
+          description: No autorizado.
