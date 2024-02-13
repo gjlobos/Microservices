@@ -1,0 +1,45 @@
+#Configuraciones del servidor
+server:
+  port: 8090
+
+#Configuraciones de eureka
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+#Configuraciones de spring cloud
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: users-service
+          uri: lb://users-service
+          predicates:
+            - Path=/api/v1/users/**
+          filters:
+            - StripPrefix=2
+  security:
+    oauth2:
+      client:
+        provider:
+          digital-house:
+            issuer-uri: http://localhost:8082/realms/DigitalMedia
+            jwk-set-uri: http://localhost:8082/realms/DigitalMedia/protocol/openid-connect/certs
+        registration:
+          digital-house:
+            client-id: api-gateway
+            client-secret: UnTrDHifURqYpIOgeKtKmMVkCWpnV2Hu
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8090/login/oauth2/code/DigitalMedia
+
+
